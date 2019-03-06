@@ -1,0 +1,7 @@
+bin/**
+obj/**
+*.user
+.vs/**
+**/.vs/**
+*.p7s
+**/packages/**

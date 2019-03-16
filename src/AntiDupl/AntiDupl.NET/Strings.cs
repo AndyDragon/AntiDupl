@@ -258,7 +258,6 @@ namespace AntiDupl.NET
         public string MainMenu_File_SaveProfileAsMenuItem_Text;
         public string MainMenu_File_LoadProfileOnLoadingMenuItem_Text;
         public string MainMenu_File_SaveProfileOnClosingMenuItem_Text;
-        public string MainMenu_File_SaveProfileOnFinishSearchMenuItem_Text;
         public string MainMenu_File_ExitMenuItem_Text;
 
         public string MainMenu_EditMenuItem_Text;

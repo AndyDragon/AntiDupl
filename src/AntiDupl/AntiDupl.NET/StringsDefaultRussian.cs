@@ -255,7 +255,6 @@ namespace AntiDupl.NET
             s.MainMenu_File_SaveProfileAsMenuItem_Text = "��������� ������� ������ ���";
             s.MainMenu_File_LoadProfileOnLoadingMenuItem_Text = "��������� ������� ��� ��������";
             s.MainMenu_File_SaveProfileOnClosingMenuItem_Text = "��������� ������� ��� ��������";
-            s.MainMenu_File_SaveProfileOnFinishSearchMenuItem_Text = "��������� ������� ��� ��������";
             s.MainMenu_File_ExitMenuItem_Text = "�����";
 
             s.MainMenu_EditMenuItem_Text = "������";

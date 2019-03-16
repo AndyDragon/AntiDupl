@@ -255,7 +255,6 @@ namespace AntiDupl.NET
             s.MainMenu_File_SaveProfileAsMenuItem_Text = "Save search profile as";
             s.MainMenu_File_LoadProfileOnLoadingMenuItem_Text = "Load profile on loading";
             s.MainMenu_File_SaveProfileOnClosingMenuItem_Text = "Save profile on closing";
-            s.MainMenu_File_SaveProfileOnFinishSearchMenuItem_Text = "Save profile when search has finished";
             s.MainMenu_File_ExitMenuItem_Text = "Exit";
 
             s.MainMenu_EditMenuItem_Text = "Edit";

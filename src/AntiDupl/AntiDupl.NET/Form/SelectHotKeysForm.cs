@@ -63,7 +63,7 @@ namespace AntiDupl.NET
 
         private void InitializeComponents()
         {
-            ClientSize = new System.Drawing.Size(420, 315);
+            ClientSize = new System.Drawing.Size(420, 425);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             StartPosition = FormStartPosition.CenterScreen;
             ShowInTaskbar = false;
@@ -168,6 +168,9 @@ namespace AntiDupl.NET
                 m_hotKeyItems[(int)HotKeyOptions.Action.CurrentDuplPairRenameSecondToFirst].icon.Image = Resources.Images.Get("RenameSecondToFirstHorizontalButton");
             }
             m_hotKeyItems[(int)HotKeyOptions.Action.CurrentMistake].icon.Image = Resources.Images.Get("MistakeButton");
+            m_hotKeyItems[(int)HotKeyOptions.Action.CurrentBothAllMistake].icon.Image = Resources.Images.Get("BothAllMistakeButton");
+            m_hotKeyItems[(int)HotKeyOptions.Action.CurrentFirstAllMistake].icon.Image = Resources.Images.Get("FirstAllMistakeButton");
+            m_hotKeyItems[(int)HotKeyOptions.Action.CurrentSecondAllMistake].icon.Image = Resources.Images.Get("SecondAllMistakeButton");
         }
 
         private void UpdateStrings()
@@ -189,6 +192,9 @@ namespace AntiDupl.NET
             m_hotKeyItems[(int)HotKeyOptions.Action.CurrentDuplPairRenameFirstToSecond].text.Text = s.ResultsPreviewDuplPair_RenameFirstToSecondButton_ToolTip_Text;
             m_hotKeyItems[(int)HotKeyOptions.Action.CurrentDuplPairRenameSecondToFirst].text.Text = s.ResultsPreviewDuplPair_RenameSecondToFirstButton_ToolTip_Text;
             m_hotKeyItems[(int)HotKeyOptions.Action.CurrentMistake].text.Text = s.ResultsPreviewDuplPair_MistakeButton_ToolTip_Text;
+            m_hotKeyItems[(int)HotKeyOptions.Action.CurrentFirstAllMistake].text.Text = s.ResultsPreviewDuplPair_FirstAllMistakeButton_ToolTip_Text;
+            m_hotKeyItems[(int)HotKeyOptions.Action.CurrentSecondAllMistake].text.Text = s.ResultsPreviewDuplPair_SecondAllMistakeButton_ToolTip_Text;
+            m_hotKeyItems[(int)HotKeyOptions.Action.CurrentBothAllMistake].text.Text = s.ResultsPreviewDuplPair_BothAllMistakeButton_ToolTip_Text;
             m_hotKeyItems[(int)HotKeyOptions.Action.ShowNeighbours].text.Text = s.MainMenu_View_ShowNeighbourImageMenuItem_Text;
         }
 

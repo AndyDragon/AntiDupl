@@ -117,6 +117,5 @@ namespace AntiDupl.NET
 
             return newBitmap;
         }
-
     }
 }

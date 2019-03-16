@@ -39,6 +39,9 @@ namespace AntiDupl.NET
             CurrentDuplPairRenameFirstToSecond,
             CurrentDuplPairRenameSecondToFirst,
             CurrentMistake,
+            CurrentFirstAllMistake,
+            CurrentSecondAllMistake,
+            CurrentBothAllMistake,
             ShowNeighbours,
             Size
         }
@@ -72,6 +75,9 @@ namespace AntiDupl.NET
             keys[(int)Action.CurrentDuplPairRenameFirstToSecond] = Keys.NumPad4;
             keys[(int)Action.CurrentDuplPairRenameSecondToFirst] = Keys.NumPad6;
             keys[(int)Action.CurrentMistake] = Keys.NumPad5;
+            keys[(int)Action.CurrentFirstAllMistake] = Keys.Subtract;
+            keys[(int)Action.CurrentSecondAllMistake] = Keys.Add;
+            keys[(int)Action.CurrentBothAllMistake] = Keys.Multiply;
             keys[(int)Action.ShowNeighbours] = Keys.Control | Keys.Q;
         }
 
@@ -90,6 +96,12 @@ namespace AntiDupl.NET
                 keys[(int)Action.CurrentDefectDelete] = Keys.NumPad1;
             if (action == Action.CurrentMistake)
                 keys[(int)Action.CurrentMistake] = Keys.NumPad5;
+            if (action == Action.CurrentFirstAllMistake)
+                keys[(int)Action.CurrentFirstAllMistake] = Keys.Subtract;
+            if (action == Action.CurrentSecondAllMistake)
+                keys[(int)Action.CurrentSecondAllMistake] = Keys.Add;
+            if (action == Action.CurrentBothAllMistake)
+                keys[(int)Action.CurrentBothAllMistake] = Keys.Multiply;
             if (action == Action.CurrentDuplPairRenameSecondToFirst)
                 keys[(int)Action.CurrentDuplPairRenameSecondToFirst] = Keys.NumPad6;
             if (action == Action.ShowNeighbours)
@@ -158,6 +170,14 @@ namespace AntiDupl.NET
                         return false;
                     }
                 }
+            }
+            else if (action == Action.CurrentFirstAllMistake)
+            {
+                // TODO ??
+            }
+            else if (action == Action.CurrentSecondAllMistake)
+            {
+                // TODO ??
             }
             else
             {

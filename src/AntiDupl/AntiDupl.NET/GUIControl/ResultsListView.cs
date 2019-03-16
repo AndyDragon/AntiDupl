@@ -238,10 +238,104 @@ namespace AntiDupl.NET
 
         public void MakeAction(CoreDll.LocalActionType action, CoreDll.TargetType target)
         {
-            m_makeAction = true;
-            ProgressForm progressForm = new ProgressForm(action, target, m_core, m_options, m_coreOptions, m_mainSplitContainer);
-            progressForm.Execute();
-            m_makeAction = false;
+            //if (action == CoreDll.LocalActionType.FirstAllMistake)
+            //{
+            //    if (target == CoreDll.TargetType.Current)
+            //    {
+            //        var currentResult = m_results[m_currentRowIndex];
+            //        if (currentResult.type == CoreDll.ResultType.DefectImage)
+            //        {
+            //            m_makeAction = true;
+            //            ProgressForm progressForm = new ProgressForm(CoreDll.LocalActionType.Mistake, target, m_core, m_options, m_coreOptions, m_mainSplitContainer);
+            //            progressForm.Execute();
+            //            m_makeAction = false;
+            //        }
+            //        else if (currentResult.type == CoreDll.ResultType.DuplImagePair)
+            //        {
+            //            for (var index = m_results.Length - 1; index >= 0; index--)
+            //            {
+            //                var result = m_results[index];
+            //                if (result.first.id == currentResult.first.id || result.second.id == currentResult.first.id)
+            //                {
+            //                    SetCurrentRow(index);
+            //                    m_makeAction = true;
+            //                    ProgressForm progressForm = new ProgressForm(CoreDll.LocalActionType.Mistake, target, m_core, m_options, m_coreOptions, m_mainSplitContainer);
+            //                    progressForm.Execute();
+            //                    m_makeAction = false;
+            //                }
+            //            }
+            //            SetRowSelection(false);
+            //        }
+            //    }
+            //}
+            //else if (action == CoreDll.LocalActionType.SecondAllMistake)
+            //{
+            //    if (target == CoreDll.TargetType.Current)
+            //    {
+            //        var currentResult = m_results[m_currentRowIndex];
+            //        if (currentResult.type == CoreDll.ResultType.DefectImage)
+            //        {
+            //            m_makeAction = true;
+            //            ProgressForm progressForm = new ProgressForm(CoreDll.LocalActionType.Mistake, target, m_core, m_options, m_coreOptions, m_mainSplitContainer);
+            //            progressForm.Execute();
+            //            m_makeAction = false;
+            //        }
+            //        else if (currentResult.type == CoreDll.ResultType.DuplImagePair)
+            //        {
+            //            for (var index = m_results.Length - 1; index >= 0; index--)
+            //            {
+            //                var result = m_results[index];
+            //                if (result.first.id == currentResult.second.id || result.second.id == currentResult.second.id)
+            //                {
+            //                    SetCurrentRow(index);
+            //                    m_makeAction = true;
+            //                    ProgressForm progressForm = new ProgressForm(CoreDll.LocalActionType.Mistake, target, m_core, m_options, m_coreOptions, m_mainSplitContainer);
+            //                    progressForm.Execute();
+            //                    m_makeAction = false;
+            //                }
+            //            }
+            //            SetRowSelection(false);
+            //        }
+            //    }
+            //}
+            //else if (action == CoreDll.LocalActionType.BothAllMistake)
+            //{
+            //    if (target == CoreDll.TargetType.Current)
+            //    {
+            //        var currentResult = m_results[m_currentRowIndex];
+            //        if (currentResult.type == CoreDll.ResultType.DefectImage)
+            //        {
+            //            m_makeAction = true;
+            //            ProgressForm progressForm = new ProgressForm(CoreDll.LocalActionType.Mistake, target, m_core, m_options, m_coreOptions, m_mainSplitContainer);
+            //            progressForm.Execute();
+            //            m_makeAction = false;
+            //        }
+            //        else if (currentResult.type == CoreDll.ResultType.DuplImagePair)
+            //        {
+            //            for (var index = m_results.Length - 1; index >= 0; index--)
+            //            {
+            //                var result = m_results[index];
+            //                if (result.first.id == currentResult.first.id || result.second.id == currentResult.first.id ||
+            //                    result.first.id == currentResult.second.id || result.second.id == currentResult.second.id)
+            //                {
+            //                    SetCurrentRow(index);
+            //                    m_makeAction = true;
+            //                    ProgressForm progressForm = new ProgressForm(CoreDll.LocalActionType.Mistake, target, m_core, m_options, m_coreOptions, m_mainSplitContainer);
+            //                    progressForm.Execute();
+            //                    m_makeAction = false;
+            //                }
+            //            }
+            //            SetRowSelection(false);
+            //        }
+            //    }
+            //}
+            //else
+            //{
+                m_makeAction = true;
+                ProgressForm progressForm = new ProgressForm(action, target, m_core, m_options, m_coreOptions, m_mainSplitContainer);
+                progressForm.Execute();
+                m_makeAction = false;
+            //}
         }
 
         public void RefreshResults()
@@ -327,6 +421,12 @@ namespace AntiDupl.NET
                         MakeAction(CoreDll.LocalActionType.RenameSecondToFirst, CoreDll.TargetType.Current);
                     else if (hotKey == m_options.hotKeyOptions.keys[(int)HotKeyOptions.Action.CurrentMistake])
                         MakeAction(CoreDll.LocalActionType.Mistake, CoreDll.TargetType.Current);
+                    else if (hotKey == m_options.hotKeyOptions.keys[(int)HotKeyOptions.Action.CurrentBothAllMistake])
+                        MakeAction(CoreDll.LocalActionType.BothAllMistake, CoreDll.TargetType.Current);
+                    else if (hotKey == m_options.hotKeyOptions.keys[(int)HotKeyOptions.Action.CurrentFirstAllMistake])
+                        MakeAction(CoreDll.LocalActionType.FirstAllMistake, CoreDll.TargetType.Current);
+                    else if (hotKey == m_options.hotKeyOptions.keys[(int)HotKeyOptions.Action.CurrentSecondAllMistake])
+                        MakeAction(CoreDll.LocalActionType.SecondAllMistake, CoreDll.TargetType.Current);
                     else if (hotKey == m_options.hotKeyOptions.keys[(int)HotKeyOptions.Action.ShowNeighbours])
                         m_options.resultsOptions.ShowNeighboursImages = !m_options.resultsOptions.ShowNeighboursImages;
                     return;
@@ -440,7 +540,14 @@ namespace AntiDupl.NET
                         sortType = CoreDll.SortType.ByHint;
                         break;
                     case ColumnsTypeVertical.FileName:
-                        sortType = CoreDll.SortType.BySortedName;
+                        if (Control.ModifierKeys == Keys.Control)
+                        {
+                            sortType = CoreDll.SortType.BySortedPath;
+                        }
+                        else
+                        {
+                            sortType = CoreDll.SortType.BySortedName;
+                        }
                         break;
                     case ColumnsTypeVertical.FileDirectory:
                         sortType = CoreDll.SortType.BySortedDirectory;

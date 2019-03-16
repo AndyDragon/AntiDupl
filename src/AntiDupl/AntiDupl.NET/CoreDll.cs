@@ -180,6 +180,9 @@ namespace AntiDupl.NET
             MoveAndRenameSecondToFirst = 11,
             PerformHint = 12,
             Mistake = 13,
+            FirstAllMistake = 14,
+            SecondAllMistake = 15,
+            BothAllMistake = 16,
         }
 
         public enum ActionEnableType : int

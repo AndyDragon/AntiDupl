@@ -3,20 +3,20 @@
 *
 * Copyright (c) 2002-2018 Yermalayeu Ihar, 2013-2018 Borisov Dmitry.
 *
-* Permission is hereby granted, free of charge, to any person obtaining a copy 
+* Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
 * in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell 
-* copies of the Software, and to permit persons to whom the Software is 
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
 * furnished to do so, subject to the following conditions:
 *
-* The above copyright notice and this permission notice shall be included in 
+* The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
 *
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -169,6 +169,9 @@ namespace AntiDupl.NET
             s.ResultsPreviewDuplPair_RenameFirstToSecondButton_ToolTip_Text = "Replace second picture by the first picture";
             s.ResultsPreviewDuplPair_RenameSecondToFirstButton_ToolTip_Text = "Replace first picture by the second picture";
             s.ResultsPreviewDuplPair_MistakeButton_ToolTip_Text = "Mark current result as a mistake";
+            s.ResultsPreviewDuplPair_FirstAllMistakeButton_ToolTip_Text = "Mark all results with the current first picture as a mistake";
+            s.ResultsPreviewDuplPair_SecondAllMistakeButton_ToolTip_Text = "Mark all results with the current second picture as a mistake";
+            s.ResultsPreviewDuplPair_BothAllMistakeButton_ToolTip_Text = "Mark all results with the current first and second pictures as a mistake";
 
             s.ResultsPreviewDefect_DeleteButton_ToolTip_Text = "Delete picture";
             s.ResultsPreviewDefect_MistakeButton_ToolTip_Text = "Mark current result as a mistake";
@@ -188,13 +191,13 @@ namespace AntiDupl.NET
             s.ResultRowSetter_RenameSecondToFirstIcon_ToolTip_Text = "Replace first picture by the second picture";
 
             s.ResultRowSetter_Turn_0_Icon_ToolTip_Text = "Original";
-            s.ResultRowSetter_Turn_90_Icon_ToolTip_Text = "Rotated on 90°";
-            s.ResultRowSetter_Turn_180_Icon_ToolTip_Text = "Rotated on 180°";
-            s.ResultRowSetter_Turn_270_Icon_ToolTip_Text = "Rotated on 270°";
+            s.ResultRowSetter_Turn_90_Icon_ToolTip_Text = "Rotated on 90ï¿½";
+            s.ResultRowSetter_Turn_180_Icon_ToolTip_Text = "Rotated on 180ï¿½";
+            s.ResultRowSetter_Turn_270_Icon_ToolTip_Text = "Rotated on 270ï¿½";
             s.ResultRowSetter_MirrorTurn_0_Icon_ToolTip_Text = "Horizontally flipped";
-            s.ResultRowSetter_MirrorTurn_90_Icon_ToolTip_Text = "Horizontally flipped and rotated on 90°";
-            s.ResultRowSetter_MirrorTurn_180_Icon_ToolTip_Text = "Horizontally flipped and rotated on 180°";
-            s.ResultRowSetter_MirrorTurn_270_Icon_ToolTip_Text = "Horizontally flipped and rotated on 270°";
+            s.ResultRowSetter_MirrorTurn_90_Icon_ToolTip_Text = "Horizontally flipped and rotated on 90ï¿½";
+            s.ResultRowSetter_MirrorTurn_180_Icon_ToolTip_Text = "Horizontally flipped and rotated on 180ï¿½";
+            s.ResultRowSetter_MirrorTurn_270_Icon_ToolTip_Text = "Horizontally flipped and rotated on 270ï¿½";
 
             s.ResultsListView_Type_Column_Text = "Type";
             s.ResultsListView_Group_Column_Text = "Group";
@@ -252,6 +255,7 @@ namespace AntiDupl.NET
             s.MainMenu_File_SaveProfileAsMenuItem_Text = "Save search profile as";
             s.MainMenu_File_LoadProfileOnLoadingMenuItem_Text = "Load profile on loading";
             s.MainMenu_File_SaveProfileOnClosingMenuItem_Text = "Save profile on closing";
+            s.MainMenu_File_SaveProfileOnFinishSearchMenuItem_Text = "Save profile when search has finished";
             s.MainMenu_File_ExitMenuItem_Text = "Exit";
 
             s.MainMenu_EditMenuItem_Text = "Edit";

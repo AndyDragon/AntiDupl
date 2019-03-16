@@ -77,6 +77,8 @@ namespace ad
         bool Rename(TImageInfo *pImageInfo, const TString & newFileName);
 
         bool Delete(TImageInfo *pImageInfo);
+		bool Mistake(TResult * pResult);
+		bool AllMistake(TImageInfo * pImageInfo);
         bool Rename(TImageInfo *pOldImageInfo, TImageInfo *pNewImageInfo);
 		bool RenameLike(TImageInfo *pOldImageInfo, TImageInfo *pNewImageInfo);
 		bool Move(TImageInfo *pOldImageInfo, TImageInfo *pNewImageInfo);

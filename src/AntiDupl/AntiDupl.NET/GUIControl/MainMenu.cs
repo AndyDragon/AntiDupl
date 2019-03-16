@@ -45,6 +45,7 @@ namespace AntiDupl.NET
         private ToolStripMenuItem m_file_profileSaveAsMenuItem;
         private ToolStripMenuItem m_file_loadProfileOnLoading;
         private ToolStripMenuItem m_file_saveProfileOnClosing;
+        private ToolStripMenuItem m_file_saveProfileOnFinishSearch;
         private ToolStripMenuItem m_file_exitMenuItem;
 
         private ToolStripMenuItem m_editMenuItem;
@@ -106,13 +107,15 @@ namespace AntiDupl.NET
             m_file_profileSaveAsMenuItem = InitFactory.MenuItem.Create("ProfileSaveAsMenu", null, ProfileSaveAsAction);
             m_file_loadProfileOnLoading = InitFactory.MenuItem.Create(null, null, LoadProfileOnLoadingAction, m_options.loadProfileOnLoading);
             m_file_saveProfileOnClosing = InitFactory.MenuItem.Create(null, null, SaveProfileOnClosingAction, m_options.saveProfileOnClosing);
-            
+            m_file_saveProfileOnFinishSearch = InitFactory.MenuItem.Create(null, null, SaveProfileOnFinishSearchAction, m_options.saveProfileOnFinishSearch);
+
             m_fileMenuItem = new ToolStripMenuItem();
             m_fileMenuItem.DropDownItems.Add(m_file_profileOpenMenuItem);
             m_fileMenuItem.DropDownItems.Add(m_file_profileSaveAsMenuItem);
             m_fileMenuItem.DropDownItems.Add(new ToolStripSeparator());
             m_fileMenuItem.DropDownItems.Add(m_file_loadProfileOnLoading);
             m_fileMenuItem.DropDownItems.Add(m_file_saveProfileOnClosing);
+            m_fileMenuItem.DropDownItems.Add(m_file_saveProfileOnFinishSearch);
             m_fileMenuItem.DropDownItems.Add(new ToolStripSeparator());
             m_fileMenuItem.DropDownItems.Add(m_file_exitMenuItem);
 
@@ -202,6 +205,7 @@ namespace AntiDupl.NET
             m_file_profileSaveAsMenuItem.Text = s.MainMenu_File_SaveProfileAsMenuItem_Text;
             m_file_loadProfileOnLoading.Text = s.MainMenu_File_LoadProfileOnLoadingMenuItem_Text;
             m_file_saveProfileOnClosing.Text = s.MainMenu_File_SaveProfileOnClosingMenuItem_Text;
+            m_file_saveProfileOnFinishSearch.Text = s.MainMenu_File_SaveProfileOnFinishSearchMenuItem_Text;
             m_file_exitMenuItem.Text = s.MainMenu_File_ExitMenuItem_Text;
 
             m_editMenuItem.Text = s.MainMenu_EditMenuItem_Text;
@@ -446,6 +450,11 @@ namespace AntiDupl.NET
         private void SaveProfileOnClosingAction(object sender, EventArgs e)
         {
             m_options.saveProfileOnClosing = m_file_saveProfileOnClosing.Checked;
+        }
+
+        private void SaveProfileOnFinishSearchAction(object sender, EventArgs e)
+        {
+            m_options.saveProfileOnFinishSearch = m_file_saveProfileOnFinishSearch.Checked;
         }
 
         public void HelpAction(object sender, EventArgs e)

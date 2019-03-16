@@ -231,7 +231,7 @@ namespace ad
         {
             int codecFormat = CodecFormat((unsigned char*)::GlobalLock(hGlobal), ::GlobalSize(hGlobal));
             ::GlobalUnlock(hGlobal);
-            return codecFormat != CODEC_UNKNOWN;
+            return codecFormat != OPJ_CODEC_UNKNOWN;
         }
         return false;
     }
@@ -241,17 +241,17 @@ namespace ad
         unsigned char j2k[2] = {0xff, 0x4f};
         unsigned char jp2[4] = {0x6a, 0x50, 0x20, 0x20};
         if(size >= 2 && memcmp(data, j2k, sizeof(j2k)) == 0)
-            return CODEC_J2K;
+            return OPJ_CODEC_J2K;
         if(size >= 8 && memcmp(data + 4, jp2, sizeof(jp2)) == 0)
-            return CODEC_JP2;
-        return CODEC_UNKNOWN;
+            return OPJ_CODEC_JP2;
+        return OPJ_CODEC_UNKNOWN;
     }
 
     TView* TOpenJpeg::Load(unsigned char *data, size_t size)
     {
         AD_FUNCTION_PERFORMANCE_TEST
         TView *pView = NULL;
-        opj_dinfo_t *dinfo = opj_create_decompress((OPJ_CODEC_FORMAT)CodecFormat(data, size));
+		opj_codec_t *dinfo = opj_create_decompress((OPJ_CODEC_FORMAT)CodecFormat(data, size));
         if(dinfo)
         {
             opj_dparameters_t parameters;
@@ -265,7 +265,7 @@ namespace ad
                 {
                     size_t width = image->x1 - image->x0;
                     size_t height = image->y1 - image->y0;
-                    if(image->color_space != CLRSPC_UNKNOWN && width > 0 && width <= SHRT_MAX && 
+                    if(image->color_space != OPJ_CLRSPC_UNKNOWN && width > 0 && width <= SHRT_MAX &&
                         height > 0 && height <= SHRT_MAX && image->numcomps > 0)
                     {
                         opj_image_comp_t &c0 = image->comps[0];
@@ -273,7 +273,7 @@ namespace ad
                         {
                             opj_image_comp_t &c1 = image->comps[1];
                             opj_image_comp_t &c2 = image->comps[2];
-                            if(image->color_space == CLRSPC_SRGB || image->color_space == CLRSPC_UNSPECIFIED)
+                            if(image->color_space == OPJ_CLRSPC_SRGB || image->color_space == OPJ_CLRSPC_UNSPECIFIED)
                             {
                                 if(c0.prec >= 8 && c0.dx == 1 && c1.dx == 1 && c2.dx == 1 && c0.dy == 1 && c1.dy == 1 && c2.dy == 1)
                                 {
@@ -282,7 +282,7 @@ namespace ad
                                         c2.data, c2.prec, c2.sgnd != 0, c1.data, c1.prec, c1.sgnd != 0, c0.data, c0.prec, c0.sgnd != 0, 0xFF);
                                 }
                             }
-                            else if (image->color_space == CLRSPC_SYCC)
+                            else if (image->color_space == OPJ_CLRSPC_SYCC)
                             { 
                                 if(c0.prec >= 8 && (c1.dx == 1 || c1.dx == 2) && (c1.dy == 1 || c1.dy == 2) 
                                     && (c1.dy != 1 || c1.dx != 2) && width%c1.dx == 0 && height%c1.dy == 0)
@@ -295,7 +295,7 @@ namespace ad
                         }
                         else
                         {
-                            if(image->color_space == CLRSPC_GRAY || image->color_space == CLRSPC_UNSPECIFIED)
+                            if(image->color_space == OPJ_CLRSPC_GRAY || image->color_space == OPJ_CLRSPC_UNSPECIFIED)
                             {
                                 if(c0.prec >= 8 && c0.dx == 1 && c0.dy == 1)
                                 {
@@ -310,7 +310,7 @@ namespace ad
                 }
                 opj_cio_close(cio);
             }
-            opj_destroy_decompress(dinfo);
+			opj_destroy_codec(dinfo);
         }
         return pView;
     }

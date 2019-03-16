@@ -191,6 +191,13 @@ namespace AntiDupl.NET
                 m_mainForm.UpdateCaption();
                 m_mainForm.Activate();
                 m_mainSplitContainer.UpdateResults();
+                if (m_options.saveProfileOnFinishSearch)
+                {
+                    m_coreOptions.Save(m_options.coreOptionsFileName);
+                    m_options.Save();
+                    StartFinishForm startFinishForm = new StartFinishForm(m_core, m_options);
+                    startFinishForm.ExecuteFinish();
+                }
             }
             else
             {

@@ -29,9 +29,15 @@
     <UseDebugLibraries Condition="'$(Configuration)'=='Release'">false</UseDebugLibraries>
     <WholeProgramOptimization Condition="'$(Configuration)'=='Release'">true</WholeProgramOptimization>
   </PropertyGroup>
-  <PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)' == 'Win32'">
     <OutDir>$(SolutionDir)\..\..\bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\..\..\obj\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)' == 'x64'">
+    <OutDir>$(SolutionDir)\..\..\bin\x64\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\..\..\obj\x64\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup>
     <LinkIncremental Condition="'$(Configuration)'=='Debug'">true</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)'=='Release'">false</LinkIncremental>
   </PropertyGroup>
@@ -64,7 +70,16 @@
       <AdditionalOptions>/ignore:4221 %(AdditionalOptions)</AdditionalOptions>
     </Lib>
     <BuildLog>
-      <Path>$(SolutionDir)\..\..\..\obj\$(Configuration)\$(ProjectName)\Build.log</Path>
+      <Path Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)\..\..\obj\$(Configuration)\$(ProjectName)\Build.log</Path>
+    </BuildLog>
+    <BuildLog>
+      <Path Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)\..\..\obj\$(Configuration)\$(ProjectName)\Build.log</Path>
+    </BuildLog>
+    <BuildLog>
+      <Path Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)\..\..\obj\x64\$(Configuration)\$(ProjectName)\Build.log</Path>
+    </BuildLog>
+    <BuildLog>
+      <Path Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)\..\..\obj\x64\$(Configuration)\$(ProjectName)\Build.log</Path>
     </BuildLog>
   </ItemDefinitionGroup>
 </Project>

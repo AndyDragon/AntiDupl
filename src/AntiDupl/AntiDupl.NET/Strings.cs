@@ -172,6 +172,9 @@ namespace AntiDupl.NET
         public string ResultsPreviewDuplPair_RenameFirstToSecondButton_ToolTip_Text;
         public string ResultsPreviewDuplPair_RenameSecondToFirstButton_ToolTip_Text;
         public string ResultsPreviewDuplPair_MistakeButton_ToolTip_Text;
+        public string ResultsPreviewDuplPair_BothAllMistakeButton_ToolTip_Text;
+        public string ResultsPreviewDuplPair_FirstAllMistakeButton_ToolTip_Text;
+        public string ResultsPreviewDuplPair_SecondAllMistakeButton_ToolTip_Text;
 
         public string ResultsPreviewDefect_DeleteButton_ToolTip_Text;
         public string ResultsPreviewDefect_MistakeButton_ToolTip_Text;
@@ -255,6 +258,7 @@ namespace AntiDupl.NET
         public string MainMenu_File_SaveProfileAsMenuItem_Text;
         public string MainMenu_File_LoadProfileOnLoadingMenuItem_Text;
         public string MainMenu_File_SaveProfileOnClosingMenuItem_Text;
+        public string MainMenu_File_SaveProfileOnFinishSearchMenuItem_Text;
         public string MainMenu_File_ExitMenuItem_Text;
 
         public string MainMenu_EditMenuItem_Text;

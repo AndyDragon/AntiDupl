@@ -67,6 +67,7 @@ namespace AntiDupl.NET
         public bool checkMistakesAtLoading = true;
         public bool loadProfileOnLoading = true;
         public bool saveProfileOnClosing = true;
+        public bool saveProfileOnFinishSearch = true;
 
         public MainFormOptions mainFormOptions = new MainFormOptions();
         public ResultsOptions resultsOptions = new ResultsOptions();
@@ -124,6 +125,7 @@ namespace AntiDupl.NET
             checkMistakesAtLoading = options.checkMistakesAtLoading;
             loadProfileOnLoading = options.loadProfileOnLoading;
             saveProfileOnClosing = options.saveProfileOnClosing;
+            saveProfileOnFinishSearch= options.saveProfileOnFinishSearch;
         }
 
         public void Save()
@@ -162,6 +164,7 @@ namespace AntiDupl.NET
             options.checkMistakesAtLoading = checkMistakesAtLoading;
             options.loadProfileOnLoading = loadProfileOnLoading;
             options.saveProfileOnClosing = saveProfileOnClosing;
+            options.saveProfileOnFinishSearch = saveProfileOnFinishSearch;
         }
 
         public static void PathCopy(string[] source, ref string[] destination)
@@ -224,6 +227,8 @@ namespace AntiDupl.NET
             if (loadProfileOnLoading != options.loadProfileOnLoading)
                 return false;
             if (saveProfileOnClosing != options.saveProfileOnClosing)
+                return false;
+            if (saveProfileOnFinishSearch != options.saveProfileOnFinishSearch)
                 return false;
             if (m_language != options.m_language)
                 return false;

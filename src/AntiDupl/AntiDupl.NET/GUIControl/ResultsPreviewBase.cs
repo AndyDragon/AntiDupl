@@ -148,7 +148,11 @@ namespace AntiDupl.NET
 
         protected string GetToolTip(string toolTip, HotKeyOptions.Action action)
         {
-            return GetToolTip(toolTip, m_options.hotKeyOptions.keys[(int)action]);
+            if ((int)action < m_options.hotKeyOptions.keys.Length)
+            {
+                return GetToolTip(toolTip, m_options.hotKeyOptions.keys[(int)action]);
+            }
+            return GetToolTip(toolTip, Keys.Alt);
         }
 
         

@@ -360,6 +360,9 @@ namespace AntiDupl.NET
                                             builder.Append(s.ProgressForm_PerformHint);
                                             break;
                                         case CoreDll.LocalActionType.Mistake:
+                                        case CoreDll.LocalActionType.FirstAllMistake:
+                                        case CoreDll.LocalActionType.SecondAllMistake:
+                                        case CoreDll.LocalActionType.BothAllMistake:
                                             builder.Append(s.ProgressForm_Mistake);
                                             break;
                                         case CoreDll.LocalActionType.RenameFirstToSecond:

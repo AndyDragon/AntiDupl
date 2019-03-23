@@ -169,9 +169,12 @@ namespace AntiDupl.NET
             s.ResultsPreviewDuplPair_RenameFirstToSecondButton_ToolTip_Text = "��������� ������ �������� ������";
             s.ResultsPreviewDuplPair_RenameSecondToFirstButton_ToolTip_Text = "��������� ������ �������� ������";
             s.ResultsPreviewDuplPair_MistakeButton_ToolTip_Text = "�������� ������� ��������� ��� ���������";
-            s.ResultsPreviewDuplPair_FirstAllMistakeButton_ToolTip_Text = "�������� ������� ��������� ��� ���������";
-            s.ResultsPreviewDuplPair_SecondAllMistakeButton_ToolTip_Text = "�������� ������� ��������� ��� ���������";
-            s.ResultsPreviewDuplPair_BothAllMistakeButton_ToolTip_Text = "�������� ������� ��������� ��� ���������";
+            s.ResultsPreviewDuplPair_FirstAllMistakeButton_ToolTip_Text = "Mark all results with the current first picture as a mistake";
+            s.ResultsPreviewDuplPair_SecondAllMistakeButton_ToolTip_Text = "Mark all results with the current second picture as a mistake";
+            s.ResultsPreviewDuplPair_BothAllMistakeButton_ToolTip_Text = "Mark all results with the current first and second pictures as a mistake";
+            s.ResultsPreviewDuplPair_FirstAllEquipmentMistakeButton_ToolTip_Text = "Mark all results with the same equipment as the current first picture as a mistake";
+            s.ResultsPreviewDuplPair_SecondAllEquipmentMistakeButton_ToolTip_Text = "Mark all results with the same equipment as the current second picture as a mistake";
+            s.ResultsPreviewDuplPair_BothAllEquipmentMistakeButton_ToolTip_Text = "Mark all results with the same equipment as the current first and second pictures as a mistake";
 
             s.ResultsPreviewDefect_DeleteButton_ToolTip_Text = "������� ��������";
             s.ResultsPreviewDefect_MistakeButton_ToolTip_Text = "�������� ������� ��������� ��� ���������";

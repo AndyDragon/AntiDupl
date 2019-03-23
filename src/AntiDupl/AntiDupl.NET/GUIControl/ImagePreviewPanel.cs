@@ -76,6 +76,8 @@ namespace AntiDupl.NET
         private Label m_imageBlocknessLabel;
         private Label m_imageBlurringLabel;
         private Label m_imageExifLabel;
+        private Label m_imageExifMakeLabel;
+        private Label m_imageExifModelLabel;
         private Label m_pathLabel;
         private ToolTip m_toolTip;
 
@@ -153,6 +155,30 @@ namespace AntiDupl.NET
             m_imageExifLabel.Text = s.ImagePreviewPanel_EXIF_Text;
             m_imageExifLabel.Visible = false;
 
+            m_imageExifMakeLabel = new Label();
+            m_imageExifMakeLabel.Dock = DockStyle.Fill;
+            m_imageExifMakeLabel.BorderStyle = BorderStyle.Fixed3D;
+            m_imageExifMakeLabel.Padding = new Padding(1, 3, 1, 0);
+            m_imageExifMakeLabel.Margin = new Padding(IBW, 0, 0, 0);
+            m_imageExifMakeLabel.TextAlign = ContentAlignment.TopCenter;
+            m_imageExifMakeLabel.AutoSize = true;
+            m_imageExifMakeLabel.Text = "--";
+            m_imageExifMakeLabel.Visible = false;
+            m_imageExifMakeLabel.MaximumSize = new Size(150, m_imageExifMakeLabel.Height);
+            m_imageExifMakeLabel.AutoEllipsis = true;
+
+            m_imageExifModelLabel = new Label();
+            m_imageExifModelLabel.Dock = DockStyle.Fill;
+            m_imageExifModelLabel.BorderStyle = BorderStyle.Fixed3D;
+            m_imageExifModelLabel.Padding = new Padding(1, 3, 1, 0);
+            m_imageExifModelLabel.Margin = new Padding(0, 0, 0, 0);
+            m_imageExifModelLabel.TextAlign = ContentAlignment.TopCenter;
+            m_imageExifModelLabel.AutoSize = true;
+            m_imageExifModelLabel.Text = "--";
+            m_imageExifModelLabel.Visible = false;
+            m_imageExifModelLabel.MaximumSize = new Size(100, m_imageExifModelLabel.Height);
+            m_imageExifModelLabel.AutoEllipsis = true;
+
             m_pathLabel = new Label();
             m_pathLabel.Location = new Point(0, 0);
             m_pathLabel.Dock = DockStyle.Fill;
@@ -211,9 +237,29 @@ namespace AntiDupl.NET
                 {
                     m_imageExifLabel.Visible = true;
                     SetExifTooltip(currentImageInfo);
+                    if (currentImageInfo.exifInfo.equipMake.Length > 0)
+                    {
+                        m_imageExifMakeLabel.Visible = true;
+                    }
+                    else
+                    {
+                        m_imageExifMakeLabel.Visible = false;
+                    }
+                    if (currentImageInfo.exifInfo.equipModel.Length > 0)
+                    {
+                        m_imageExifModelLabel.Visible = true;
+                    }
+                    else
+                    {
+                        m_imageExifModelLabel.Visible = false;
+                    }
                 }
                 else
+                {
                     m_imageExifLabel.Visible = false;
+                    m_imageExifMakeLabel.Visible = false;
+                    m_imageExifModelLabel.Visible = false;
+                }
                 m_pathLabel.Text = m_currentImageInfo.path;
                 if (m_neighbourImageInfo != null) //подсветка highlight
                 {
@@ -230,6 +276,10 @@ namespace AntiDupl.NET
                             Color.Red : TableLayoutPanel.DefaultForeColor;
                     m_imageExifLabel.ForeColor = ExifEqual(m_currentImageInfo.exifInfo, m_neighbourImageInfo.exifInfo) ?
                         TableLayoutPanel.DefaultForeColor : Color.Red;
+                    m_imageExifMakeLabel.ForeColor = ExifMakeEqual(m_currentImageInfo.exifInfo, m_neighbourImageInfo.exifInfo) ?
+                        TableLayoutPanel.DefaultForeColor : Color.Red;
+                    m_imageExifModelLabel.ForeColor = ExifModelEqual(m_currentImageInfo.exifInfo, m_neighbourImageInfo.exifInfo) ?
+                        TableLayoutPanel.DefaultForeColor : Color.Red;
                 }
             }
             else if (m_neighbourImageInfo != null)
@@ -245,6 +295,10 @@ namespace AntiDupl.NET
                 m_imageBlurringLabel.ForeColor = m_currentImageInfo.blurring > m_neighbourImageInfo.blurring ?
                         Color.Red : TableLayoutPanel.DefaultForeColor;
                 m_imageExifLabel.ForeColor = ExifEqual(m_currentImageInfo.exifInfo, m_neighbourImageInfo.exifInfo) ?
+                    TableLayoutPanel.DefaultForeColor : Color.Red;
+                m_imageExifMakeLabel.ForeColor = ExifMakeEqual(m_currentImageInfo.exifInfo, m_neighbourImageInfo.exifInfo) ?
+                    TableLayoutPanel.DefaultForeColor : Color.Red;
+                m_imageExifModelLabel.ForeColor = ExifModelEqual(m_currentImageInfo.exifInfo, m_neighbourImageInfo.exifInfo) ?
                     TableLayoutPanel.DefaultForeColor : Color.Red;
             }
             if (updateCurrent || updateNeighbour)
@@ -321,7 +375,7 @@ namespace AntiDupl.NET
 
             m_pictureBoxPanel.Position = m_position;
             
-            TableLayoutPanel infoLayout = InitFactory.Layout.Create(7, 1); //number of controls in panel
+            TableLayoutPanel infoLayout = InitFactory.Layout.Create(9, 1); //number of controls in panel
             infoLayout.Height = m_imageSizeLabel.Height;
             if (m_position != Position.Left)
             {
@@ -336,6 +390,8 @@ namespace AntiDupl.NET
                 infoLayout.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));//imageBlurringLabel
                 infoLayout.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));//imageTypeLabel
                 infoLayout.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));//imageExifLabel
+                infoLayout.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));//imageExifMakeLabel
+                infoLayout.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));//imageExifModelLabel
                 infoLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));//pathLabel
 
                 infoLayout.Controls.Add(m_fileSizeLabel, 0, 0);
@@ -344,7 +400,9 @@ namespace AntiDupl.NET
                 infoLayout.Controls.Add(m_imageBlurringLabel, 3, 0);
                 infoLayout.Controls.Add(m_imageTypeLabel, 4, 0);
                 infoLayout.Controls.Add(m_imageExifLabel, 5, 0);
-                infoLayout.Controls.Add(m_pathLabel, 6, 0);
+                infoLayout.Controls.Add(m_imageExifMakeLabel, 6, 0);
+                infoLayout.Controls.Add(m_imageExifModelLabel, 7, 0);
+                infoLayout.Controls.Add(m_pathLabel, 8, 0);
             }
             else
             {
@@ -354,6 +412,8 @@ namespace AntiDupl.NET
                 m_fileSizeLabel.Margin = new Padding(IBW, 0, EBW, 0);
 
                 infoLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));//pathLabel
+                infoLayout.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));//imageExifMakeLabel
+                infoLayout.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));//imageExifModelLabel
                 infoLayout.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));//imageExifLabel
                 infoLayout.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));//imageTypeLabel
                 infoLayout.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));//imageBlurringLabel
@@ -362,12 +422,14 @@ namespace AntiDupl.NET
                 infoLayout.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));//fileSizeLabel
 
                 infoLayout.Controls.Add(m_pathLabel, 0, 0);
-                infoLayout.Controls.Add(m_imageTypeLabel, 1, 0);
-                infoLayout.Controls.Add(m_imageBlurringLabel, 2, 0);
-                infoLayout.Controls.Add(m_imageBlocknessLabel, 3, 0); 
-                infoLayout.Controls.Add(m_imageSizeLabel, 4, 0);
-                infoLayout.Controls.Add(m_imageExifLabel, 5, 0);
-                infoLayout.Controls.Add(m_fileSizeLabel, 6, 0);
+                infoLayout.Controls.Add(m_imageExifMakeLabel, 1, 0); // switching these two doesn't make sense
+                infoLayout.Controls.Add(m_imageExifModelLabel, 2, 0);
+                infoLayout.Controls.Add(m_imageExifLabel, 3, 0);
+                infoLayout.Controls.Add(m_imageTypeLabel, 4, 0);
+                infoLayout.Controls.Add(m_imageBlurringLabel, 5, 0);
+                infoLayout.Controls.Add(m_imageBlocknessLabel, 6, 0); 
+                infoLayout.Controls.Add(m_imageSizeLabel, 7, 0);
+                infoLayout.Controls.Add(m_fileSizeLabel, 8, 0);
             }
 
             Controls.Clear();
@@ -456,20 +518,32 @@ namespace AntiDupl.NET
         private void SetExifTooltip(CoreImageInfo currentImageInfo)
         {
             Strings s = Resources.Strings.Current;
-            string exifSting = String.Empty;
 
             List<string> exifList = GetExifList(currentImageInfo, s);
 
             if (exifList.Count > 0)
             {
-                for (int i = 0; i < exifList.Count - 1; i++)
-                {
-                    exifSting = exifSting + exifList[i];
-                    exifSting = exifSting + Environment.NewLine;
-                }
-                exifSting = exifSting + exifList[exifList.Count - 1];
+                string exifString = string.Empty;
+                exifString = string.Join(Environment.NewLine, exifList.ToArray());
+                m_toolTip.SetToolTip(m_imageExifLabel, exifString);
 
-                m_toolTip.SetToolTip(m_imageExifLabel, exifSting);
+                string makeString = string.Empty;
+                string modelString = string.Empty;
+                for (int i = 0; i < exifList.Count; i++)
+                {
+                    if (exifList[i].StartsWith("Equipment Make:", StringComparison.OrdinalIgnoreCase))
+                    {
+                        makeString = exifList[i].Substring("Equipment Make:".Length).Trim().Replace("&", "&&");
+                    }
+                    if (exifList[i].StartsWith("Equipment Model:", StringComparison.OrdinalIgnoreCase))
+                    {
+                        modelString = exifList[i].Substring("Equipment Model:".Length).Trim().Replace("&", "&&");
+                    }
+                }
+                m_imageExifMakeLabel.Text = makeString;
+                m_toolTip.SetToolTip(m_imageExifMakeLabel, makeString);
+                m_imageExifModelLabel.Text = modelString;
+                m_toolTip.SetToolTip(m_imageExifModelLabel, modelString);
             }
         }
 
@@ -502,17 +576,26 @@ namespace AntiDupl.NET
         /// </summary>
         private bool ExifEqual(CoreDll.adImageExifW imageExif1, CoreDll.adImageExifW imageExif2)
         {
-            if (imageExif1.isEmpty == imageExif2.isEmpty &&
+            return (imageExif1.isEmpty == imageExif2.isEmpty &&
                 imageExif1.artist.CompareTo(imageExif2.artist) == 0 &&
                 imageExif1.dateTime.CompareTo(imageExif2.dateTime) == 0 &&
                 imageExif1.equipMake.CompareTo(imageExif2.equipMake) == 0 &&
                 imageExif1.equipModel.CompareTo(imageExif2.equipModel) == 0 &&
                 imageExif1.imageDescription.CompareTo(imageExif2.imageDescription) == 0 &&
                 imageExif1.softwareUsed.CompareTo(imageExif2.softwareUsed) == 0 &&
-                imageExif1.userComment.CompareTo(imageExif2.userComment) == 0)
-                return true;
+                imageExif1.userComment.CompareTo(imageExif2.userComment) == 0);
+        }
 
-            return false;
+        private bool ExifMakeEqual(CoreDll.adImageExifW imageExif1, CoreDll.adImageExifW imageExif2)
+        {
+            return (imageExif1.isEmpty == imageExif2.isEmpty &&
+                imageExif1.equipMake.CompareTo(imageExif2.equipMake) == 0);
+        }
+
+        private bool ExifModelEqual(CoreDll.adImageExifW imageExif1, CoreDll.adImageExifW imageExif2)
+        {
+            return (imageExif1.isEmpty == imageExif2.isEmpty &&
+                imageExif1.equipModel.CompareTo(imageExif2.equipModel) == 0);
         }
 
         public ComparableBitmap[] GetImageFragments()

@@ -6,3 +6,4 @@ obj/**
 *.p7s
 **/packages/**
 wpf/
+src/.vscode/**

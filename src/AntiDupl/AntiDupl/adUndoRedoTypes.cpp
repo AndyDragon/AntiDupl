@@ -3,20 +3,20 @@
 *
 * Copyright (c) 2002-2018 Yermalayeu Ihar.
 *
-* Permission is hereby granted, free of charge, to any person obtaining a copy 
+* Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
 * in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell 
-* copies of the Software, and to permit persons to whom the Software is 
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
 * furnished to do so, subject to the following conditions:
 *
-* The above copyright notice and this permission notice shall be included in 
+* The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
 *
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -73,8 +73,8 @@ namespace ad
         for(TResultPtrVector::iterator it = results.begin(); it != results.end(); ++it)
         {
             TResultPtr pResult = *it;
-            if(pResult->type == AD_RESULT_DUPL_IMAGE_PAIR && 
-                !TResult::ImageInfoLesser(pResult->first, pResult->second, sortType, increasing))
+            if(pResult->type == AD_RESULT_DUPL_IMAGE_PAIR &&
+                TResult::ImageInfoCompare(pResult->first, pResult->second, sortType, increasing) < 0)
             {
                 pResult->Swap();
             }
@@ -100,7 +100,7 @@ namespace ad
         return AD_OK;
     }
 
-	// Возврашает текущий индекс
+	// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
     adError TUndoRedoStage::GetCurrent(adSizePtr pCurrentIndex)
     {
         if(pCurrentIndex == NULL)
@@ -166,7 +166,7 @@ namespace ad
         return AD_OK;
     }
 
-	// Эскпортириет список результатов из хранилища.
+	// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
     adError TUndoRedoStage::Export(adSizePtr pStartFrom, adResultPtrW pResult, adSizePtr pResultSize) const
     {
         if(pResult == NULL || pResultSize == NULL || pStartFrom == NULL)
@@ -197,14 +197,14 @@ namespace ad
             TValidator(TMistakeStorage *pMistakeStorage) :m_pMistakeStorage(pMistakeStorage) {}
             bool operator()(TImageInfo* a) const //DEFECT
             {
-                return 
-                    !a->removed && 
+                return
+                    !a->removed &&
                     IsFileExists(a->path.Original().c_str()) &&
                     !m_pMistakeStorage->IsHas(a);
             }
             bool operator()(TImageInfo* a, TImageInfo* b) const //DUPL_IMAGE_PAIR
             {
-                return 
+                return
                     (!a->removed) && (!b->removed) &&
                     IsFileExists(a->path.Original().c_str()) && IsFileExists(b->path.Original().c_str()) &&
                     !m_pMistakeStorage->IsHas(a, b);
@@ -220,7 +220,7 @@ namespace ad
         {
         public:
             bool operator()(TImageInfo* a) const {return !a->removed;}
-            bool operator()(TImageInfo* a, TImageInfo* b) const 
+            bool operator()(TImageInfo* a, TImageInfo* b) const
             {return (!a->removed) && (!b->removed);}
         };
 
@@ -235,7 +235,7 @@ namespace ad
         public:
             TValidator(TMistakeStorage *pMistakeStorage) :m_pMistakeStorage(pMistakeStorage) {}
             bool operator()(TImageInfo* a) const {return !m_pMistakeStorage->IsHas(a);}
-            bool operator()(TImageInfo* a, TImageInfo* b) const 
+            bool operator()(TImageInfo* a, TImageInfo* b) const
             {return !m_pMistakeStorage->IsHas(a, b);}
         };
 
@@ -253,9 +253,9 @@ namespace ad
 			{
 				return !((m_pOptions->ignorePaths.IsHasPath(a->path.Original()) != AD_IS_NOT_EXIST) ||
 						 (m_pOptions->ignorePaths.IsHasPath(a->path.GetDirectory()) != AD_IS_NOT_EXIST));
-			} 
-            bool operator()(TImageInfo* a, TImageInfo* b) const  //DUPL_IMAGE_PAIR true - оставлять, false- удалять
-            {	// != AD_IS_NOT_EXIST - есть в каталоге пропуска (удалить), == AD_IS_NOT_EXIST - нету в каталоге пропуска
+			}
+            bool operator()(TImageInfo* a, TImageInfo* b) const  //DUPL_IMAGE_PAIR true - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, false- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+            {	// != AD_IS_NOT_EXIST - пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅ), == AD_IS_NOT_EXIST - пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 				return !((m_pOptions->ignorePaths.IsHasPath(a->path.Original()) != AD_IS_NOT_EXIST) ||
 					   (m_pOptions->ignorePaths.IsHasPath(a->path.GetDirectory()) != AD_IS_NOT_EXIST) ||
 					   (m_pOptions->ignorePaths.IsHasPath(b->path.Original()) != AD_IS_NOT_EXIST) ||
@@ -294,7 +294,7 @@ namespace ad
         }
     }
 
-	// Удаление неправильных результатов из списка результатов и сохранение состояния.
+	// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
     template <class TValidator> void TUndoRedoStage::RemoveInvalid(const TValidator &validator, TStatus *pStatus, bool canCancel)
     {
         pStatus->SetProgress(0, 0);
@@ -335,7 +335,7 @@ namespace ad
                     }
                     break;
                 case AD_RESULT_DUPL_IMAGE_PAIR:
-                    if(validator(pResult->first, pResult->second)) //если хоть одна удалена
+                    if(validator(pResult->first, pResult->second)) //пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                     {
                         validList.push_back(pResult);
                         if(searchValidCurrent)

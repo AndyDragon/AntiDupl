@@ -70,7 +70,7 @@ namespace AntiDupl.NET
 
         public MainFormOptions mainFormOptions = new MainFormOptions();
         public ResultsOptions resultsOptions = new ResultsOptions();
-        public HotKeyOptions hotKeyOptions= new HotKeyOptions();
+        public HotKeyOptions hotKeyOptions = new HotKeyOptions();
 
         public string coreOptionsFileName = GetDefaultCoreOptionsFileName();
 

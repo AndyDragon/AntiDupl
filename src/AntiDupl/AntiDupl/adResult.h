@@ -51,7 +51,7 @@ namespace ad
         TResult();
         TResult(const TResult& result);
 
-        static bool ImageInfoLesser(TImageInfoPtr pFirst, TImageInfoPtr pSecond, TSortType sortType, bool increasing);
+        static int ImageInfoCompare(TImageInfoPtr pFirst, TImageInfoPtr pSecond, TSortType sortType, bool increasing);
         void Swap();
 
         bool Export(adResultPtrA pResult) const;
@@ -64,7 +64,7 @@ namespace ad
     class TResultPtrLesser
     {
     public:
-        TResultPtrLesser(TSortType sortType, bool increasing); 
+		TResultPtrLesser(TSortType sortType, bool increasing);
 
         bool operator() (TResultPtr pFirst, TResultPtr pSecond);
 

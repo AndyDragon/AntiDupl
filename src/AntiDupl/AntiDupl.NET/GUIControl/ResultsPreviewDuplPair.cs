@@ -46,8 +46,11 @@ namespace AntiDupl.NET
         private ToolStripButton m_deleteBothButton;
         private ToolStripButton m_firstAllMistakeButton;
         private ToolStripButton m_secondAllMistakeButton;
+        private ToolStripButton m_firstAllEquipmentMistakeButton;
+        private ToolStripButton m_secondAllEquipmentMistakeButton;
         private ToolStripButton m_mistakeButton;
         private ToolStripButton m_bothAllMistakeButton;
+        private ToolStripButton m_bothAllEquipmentMistakeButton;
 
         private struct RectanglesWithSimilarity
         {
@@ -78,14 +81,17 @@ namespace AntiDupl.NET
             m_secondImagePreviewPanel = new ImagePreviewPanel(m_core, m_options, m_resultsListView, ImagePreviewPanel.Position.Bottom);
 
             m_firstAllMistakeButton = InitFactory.ToolButton.Create("FirstAllMistakeButton", CoreDll.LocalActionType.FirstAllMistake, OnButtonClicked);
+            m_firstAllEquipmentMistakeButton = InitFactory.ToolButton.Create("FirstAllEquipmentMistakeButton", CoreDll.LocalActionType.FirstAllEquipmentMistake, OnButtonClicked);
             m_deleteFirstButton = InitFactory.ToolButton.Create("DeleteFirstVerticalButton", CoreDll.LocalActionType.DeleteFirst, OnButtonClicked);
             m_deleteSecondButton = InitFactory.ToolButton.Create("DeleteSecondVerticalButton", CoreDll.LocalActionType.DeleteSecond, OnButtonClicked);
             m_deleteBothButton = InitFactory.ToolButton.Create("DeleteBothVerticalButton", CoreDll.LocalActionType.DeleteBoth, OnButtonClicked);
             m_renameFirstToSecondButton = InitFactory.ToolButton.Create("RenameFirstToSecondVerticalButton", CoreDll.LocalActionType.RenameFirstToSecond, OnButtonClicked);
             m_renameSecondToFirstButton = InitFactory.ToolButton.Create("RenameSecondToFirstVerticalButton", CoreDll.LocalActionType.RenameSecondToFirst, OnButtonClicked);
+            m_secondAllEquipmentMistakeButton = InitFactory.ToolButton.Create("SecondAllEquipmentMistakeButton", CoreDll.LocalActionType.SecondAllEquipmentMistake, OnButtonClicked);
             m_secondAllMistakeButton = InitFactory.ToolButton.Create("SecondAllMistakeButton", CoreDll.LocalActionType.SecondAllMistake, OnButtonClicked);
             m_mistakeButton = InitFactory.ToolButton.Create("MistakeButton", CoreDll.LocalActionType.Mistake, OnButtonClicked);
             m_bothAllMistakeButton = InitFactory.ToolButton.Create("BothAllMistakeButton", CoreDll.LocalActionType.BothAllMistake, OnButtonClicked);
+            m_bothAllEquipmentMistakeButton = InitFactory.ToolButton.Create("BothAllEquipmentMistakeButton", CoreDll.LocalActionType.BothAllEquipmentMistake, OnButtonClicked);
 
             /* m_difrentNumericUpDown = new System.Windows.Forms.NumericUpDown();
              m_difrentNumericUpDown.Size = new System.Drawing.Size(62, 17);
@@ -121,14 +127,17 @@ namespace AntiDupl.NET
             Strings s = Resources.Strings.Current;
 
             m_firstAllMistakeButton.ToolTipText = GetToolTip(s.ResultsPreviewDuplPair_FirstAllMistakeButton_ToolTip_Text, HotKeyOptions.Action.CurrentFirstAllMistake);
+            m_firstAllEquipmentMistakeButton.ToolTipText = GetToolTip(s.ResultsPreviewDuplPair_FirstAllEquipmentMistakeButton_ToolTip_Text, HotKeyOptions.Action.CurrentFirstAllEquipmentMistake);
             m_deleteFirstButton.ToolTipText = GetToolTip(s.ResultsPreviewDuplPair_DeleteFirstButton_ToolTip_Text, HotKeyOptions.Action.CurrentDuplPairDeleteFirst);
             m_deleteSecondButton.ToolTipText = GetToolTip(s.ResultsPreviewDuplPair_DeleteSecondButton_ToolTip_Text, HotKeyOptions.Action.CurrentDuplPairDeleteSecond);
             m_deleteBothButton.ToolTipText = GetToolTip(s.ResultsPreviewDuplPair_DeleteBothButton_ToolTip_Text, HotKeyOptions.Action.CurrentDuplPairDeleteBoth);
             m_renameFirstToSecondButton.ToolTipText = GetToolTip(s.ResultsPreviewDuplPair_RenameFirstToSecondButton_ToolTip_Text, HotKeyOptions.Action.CurrentDuplPairRenameFirstToSecond);
             m_renameSecondToFirstButton.ToolTipText = GetToolTip(s.ResultsPreviewDuplPair_RenameSecondToFirstButton_ToolTip_Text, HotKeyOptions.Action.CurrentDuplPairRenameSecondToFirst);
+            m_secondAllEquipmentMistakeButton.ToolTipText = GetToolTip(s.ResultsPreviewDuplPair_SecondAllEquipmentMistakeButton_ToolTip_Text, HotKeyOptions.Action.CurrentSecondAllEquipmentMistake);
             m_secondAllMistakeButton.ToolTipText = GetToolTip(s.ResultsPreviewDuplPair_SecondAllMistakeButton_ToolTip_Text, HotKeyOptions.Action.CurrentSecondAllMistake);
             m_mistakeButton.ToolTipText = GetToolTip(s.ResultsPreviewDuplPair_MistakeButton_ToolTip_Text, HotKeyOptions.Action.CurrentMistake);
             m_bothAllMistakeButton.ToolTipText = GetToolTip(s.ResultsPreviewDuplPair_BothAllMistakeButton_ToolTip_Text, HotKeyOptions.Action.CurrentBothAllMistake);
+            m_bothAllEquipmentMistakeButton.ToolTipText = GetToolTip(s.ResultsPreviewDuplPair_BothAllEquipmentMistakeButton_ToolTip_Text, HotKeyOptions.Action.CurrentBothAllEquipmentMistake);
 
             // Для обновления EXIF.
             if (m_currentSearchResult != null)
@@ -205,8 +214,11 @@ namespace AntiDupl.NET
         {
             m_mistakeButton.Enabled =
             m_bothAllMistakeButton.Enabled =
-            m_firstAllMistakeButton.Enabled = 
-            m_secondAllMistakeButton.Enabled = m_coreOptions.advancedOptions.mistakeDataBase;
+            m_firstAllMistakeButton.Enabled =
+            m_secondAllMistakeButton.Enabled = 
+            m_firstAllEquipmentMistakeButton.Enabled =
+            m_secondAllEquipmentMistakeButton.Enabled =
+            m_bothAllEquipmentMistakeButton.Enabled = m_coreOptions.advancedOptions.mistakeDataBase;
         }
 
         protected override void AddItems(ResultsOptions.ViewMode viewMode)
@@ -240,10 +252,10 @@ namespace AntiDupl.NET
                 m_renameSecondToFirstButton.Image = Resources.Images.Get("RenameSecondToFirstHorizontalButton");
             }
 
-            m_toolStrip.Items.Add(m_firstAllMistakeButton);
-            m_toolStrip.Items.Add(new ToolStripSeparator());
             m_toolStrip.Items.Add(m_deleteBothButton);
             m_toolStrip.Items.Add(new ToolStripSeparator());
+            m_toolStrip.Items.Add(m_firstAllMistakeButton);
+            m_toolStrip.Items.Add(m_firstAllEquipmentMistakeButton);
             m_toolStrip.Items.Add(m_renameFirstToSecondButton);
             m_toolStrip.Items.Add(m_deleteFirstButton);
             m_toolStrip.Items.Add(new ToolStripSeparator());
@@ -252,11 +264,12 @@ namespace AntiDupl.NET
             m_toolStrip.Items.Add(new ToolStripSeparator());
             m_toolStrip.Items.Add(m_deleteSecondButton);
             m_toolStrip.Items.Add(m_renameSecondToFirstButton);
-            m_toolStrip.Items.Add(new ToolStripSeparator());
+            m_toolStrip.Items.Add(m_secondAllEquipmentMistakeButton);
             m_toolStrip.Items.Add(m_secondAllMistakeButton);
             m_toolStrip.Items.Add(new ToolStripSeparator());
             m_toolStrip.Items.Add(m_mistakeButton);
             m_toolStrip.Items.Add(m_bothAllMistakeButton);
+            m_toolStrip.Items.Add(m_bothAllEquipmentMistakeButton);
         }
 
         private void OnHighlightDifferenceChange()

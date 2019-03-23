@@ -216,7 +216,7 @@ namespace AntiDupl.NET
             m_view_hotKeysMenuItem.Text = s.MainMenu_View_HotKeysMenuItem_Text;
             m_view_stretchSmallImageMenuItem.Text = s.MainMenu_View_StretchSmallImagesMenuItem_Text;
             m_view_proportionalImageViewMenuItem.Text = s.MainMenu_View_ProportionalImageSizeMenuItem_Text;
-            if (m_options.hotKeyOptions.keys.Length > (int)HotKeyOptions.Action.ShowNeighbours &&
+            if (m_options.hotKeyOptions.keys.Length == (int)HotKeyOptions.Action.Size &&
                 m_options.hotKeyOptions.keys[(int)HotKeyOptions.Action.ShowNeighbours] != null)
                     m_view_showNeighbourImageMenuItem.Text = s.MainMenu_View_ShowNeighbourImageMenuItem_Text + String.Format(" ({0})", m_options.hotKeyOptions.keys[(int)HotKeyOptions.Action.ShowNeighbours].ToString().Replace(',', '+'));
             else

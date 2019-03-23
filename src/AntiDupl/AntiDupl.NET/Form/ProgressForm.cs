@@ -363,6 +363,9 @@ namespace AntiDupl.NET
                                         case CoreDll.LocalActionType.FirstAllMistake:
                                         case CoreDll.LocalActionType.SecondAllMistake:
                                         case CoreDll.LocalActionType.BothAllMistake:
+                                        case CoreDll.LocalActionType.FirstAllEquipmentMistake:
+                                        case CoreDll.LocalActionType.SecondAllEquipmentMistake:
+                                        case CoreDll.LocalActionType.BothAllEquipmentMistake:
                                             builder.Append(s.ProgressForm_Mistake);
                                             break;
                                         case CoreDll.LocalActionType.RenameFirstToSecond:

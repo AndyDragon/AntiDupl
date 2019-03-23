@@ -3,20 +3,20 @@
 *
 * Copyright (c) 2002-2018 Yermalayeu Ihar, 2013-2018 Borisov Dmitry.
 *
-* Permission is hereby granted, free of charge, to any person obtaining a copy 
+* Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
 * in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell 
-* copies of the Software, and to permit persons to whom the Software is 
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
 * furnished to do so, subject to the following conditions:
 *
-* The above copyright notice and this permission notice shall be included in 
+* The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
 *
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -60,58 +60,58 @@ namespace ad
     {
     }
 
-    bool TResult::ImageInfoLesser(TImageInfoPtr pFirst, TImageInfoPtr pSecond, TSortType sortType, bool increasing)
+    int TResult::ImageInfoCompare(TImageInfoPtr pFirst, TImageInfoPtr pSecond, TSortType sortType, bool increasing)
     {
         switch(sortType)
         {
         case AD_SORT_BY_SORTED_PATH:
-            return (increasing ? 
-                TPath::LesserByPath(pFirst->path, pSecond->path) : 
-                TPath::BiggerByPath(pFirst->path, pSecond->path));
+            return (increasing ?
+                TPath::CompareByPath(pFirst->path, pSecond->path) :
+                -TPath::CompareByPath(pFirst->path, pSecond->path));
         case AD_SORT_BY_SORTED_NAME:
             return (increasing ?
-                TPath::LesserByNameWithExtension(pFirst->path, pSecond->path) : 
-                TPath::BiggerByNameWithExtension(pFirst->path, pSecond->path));
+                TPath::CompareByNameWithExtension(pFirst->path, pSecond->path) :
+                -TPath::CompareByNameWithExtension(pFirst->path, pSecond->path));
         case AD_SORT_BY_SORTED_DIRECTORY:
             return (increasing ?
-                TPath::LesserByDirectory(pFirst->path, pSecond->path) : 
-                TPath::BiggerByDirectory(pFirst->path, pSecond->path));
+                TPath::CompareByDirectory(pFirst->path, pSecond->path) :
+                -TPath::CompareByDirectory(pFirst->path, pSecond->path));
         case AD_SORT_BY_SORTED_SIZE:
-            return (increasing ? 
-                pFirst->size < pSecond->size : 
-                pFirst->size > pSecond->size);
+            return (increasing ?
+                pFirst->size - pSecond->size :
+				pSecond->size - pFirst->size);
         case AD_SORT_BY_SORTED_TIME:
-            return (increasing ? 
-                pFirst->time < pSecond->time : 
-                pFirst->time > pSecond->time);
+            return (increasing ?
+                pFirst->time - pSecond->time :
+				pSecond->time - pFirst->time);
         case AD_SORT_BY_SORTED_TYPE:
-            return (increasing ? 
-                pFirst->type < pSecond->type : 
-                pFirst->type > pSecond->type);
+            return (increasing ?
+                pFirst->type - pSecond->type :
+				pSecond->type - pFirst->type);
         case AD_SORT_BY_SORTED_WIDTH:
-            return (increasing ? 
-                pFirst->width < pSecond->width : 
-                pFirst->width > pSecond->width);
+            return (increasing ?
+                pFirst->width - pSecond->width :
+				pSecond->width - pFirst->width);
         case AD_SORT_BY_SORTED_HEIGHT:
-            return (increasing ? 
-                pFirst->height < pSecond->height : 
-                pFirst->height > pSecond->height);
+            return (increasing ?
+                pFirst->height - pSecond->height :
+				pSecond->height - pFirst->height);
         case AD_SORT_BY_SORTED_AREA:
-            return (increasing ? 
-                pFirst->width*pFirst->height < pSecond->width*pSecond->height : 
-                pFirst->width*pFirst->height > pSecond->width*pSecond->height);
+            return (increasing ?
+                pFirst->width*pFirst->height - pSecond->width*pSecond->height :
+				pSecond->width*pSecond->height - pFirst->width*pFirst->height);
         case AD_SORT_BY_SORTED_RATIO:
-            return (increasing ? 
-                pFirst->width*pSecond->height < pSecond->width*pFirst->height : 
-                pFirst->width*pSecond->height > pSecond->width*pFirst->height);
+            return (increasing ?
+                pFirst->width*pSecond->height - pSecond->width*pFirst->height :
+				pSecond->width*pFirst->height - pFirst->width*pSecond->height);
 		case AD_SORT_BY_SORTED_BLOCKINESS:
-			return (increasing ? 
-                pFirst->blockiness < pSecond->blockiness : 
-                pFirst->blockiness > pSecond->blockiness);
+			return (increasing ?
+                pFirst->blockiness - pSecond->blockiness :
+				pSecond->blockiness - pFirst->blockiness);
 		case AD_SORT_BY_SORTED_BLURRING:
-			return (increasing ? 
-                pFirst->blurring < pSecond->blurring : 
-                pFirst->blurring > pSecond->blurring);
+			return (increasing ?
+                pFirst->blurring - pSecond->blurring :
+				pSecond->blurring - pFirst->blurring);
         }
 
         return false;
@@ -198,9 +198,8 @@ namespace ad
 
 	//-------------------------------------------------------------------------
 
-    TResultPtrLesser::TResultPtrLesser(TSortType sortType, bool increasing) 
-        :m_sortType(sortType),
-        m_increasing(increasing)
+	TResultPtrLesser::TResultPtrLesser(TSortType sortType, bool increasing)
+        : m_sortType(sortType), m_increasing(increasing)
     {
     }
 
@@ -210,17 +209,34 @@ namespace ad
         {
             if(m_sortType < AD_SORT_BY_FIRST_PATH)
             {
-                return TResult::ImageInfoLesser(pFirst->first, pSecond->first, m_sortType, m_increasing);
+				int difference = TResult::ImageInfoCompare(pFirst->first, pSecond->first, m_sortType, m_increasing);
+				if (difference == 0)
+				{
+					difference = TResult::ImageInfoCompare(pFirst->second, pSecond->second, m_sortType, m_increasing);
+				}
+				return difference < 0;
             }
             else if(m_sortType < AD_SORT_BY_SECOND_PATH)
             {
-                return TResult::ImageInfoLesser(pFirst->first, pSecond->first, 
+                int difference = TResult::ImageInfoCompare(pFirst->first, pSecond->first,
                     adSortType(m_sortType + AD_SORT_BY_SORTED_PATH - AD_SORT_BY_FIRST_PATH), m_increasing);
+				if (difference == 0)
+				{
+					difference = TResult::ImageInfoCompare(pFirst->second, pSecond->second,
+						adSortType(m_sortType + AD_SORT_BY_SORTED_PATH - AD_SORT_BY_FIRST_PATH), m_increasing);
+				}
+				return difference < 0;
             }
             else
             {
-                return TResult::ImageInfoLesser(pFirst->second, pSecond->second, 
+                int difference = TResult::ImageInfoCompare(pFirst->second, pSecond->second,
                     adSortType(m_sortType + AD_SORT_BY_SORTED_PATH - AD_SORT_BY_SECOND_PATH), m_increasing);
+				if (difference == 0)
+				{
+					difference = TResult::ImageInfoCompare(pFirst->first, pSecond->first,
+						adSortType(m_sortType + AD_SORT_BY_SORTED_PATH - AD_SORT_BY_SECOND_PATH), m_increasing);
+				}
+				return difference < 0;
             }
         }
         else
@@ -228,32 +244,32 @@ namespace ad
             switch(m_sortType)
             {
             case AD_SORT_BY_TYPE:
-                return m_increasing ? 
-                    pFirst->type < pSecond->type : 
+                return m_increasing ?
+                    pFirst->type < pSecond->type :
                     pFirst->type > pSecond->type;
             case AD_SORT_BY_DEFECT:
-                return m_increasing ? 
-                    pFirst->defect < pSecond->defect : 
+                return m_increasing ?
+                    pFirst->defect < pSecond->defect :
                     pFirst->defect > pSecond->defect;
             case AD_SORT_BY_DIFFERENCE:
-                return m_increasing ? 
-                    pFirst->difference < pSecond->difference : 
+                return m_increasing ?
+                    pFirst->difference < pSecond->difference :
                     pFirst->difference > pSecond->difference;
             case AD_SORT_BY_TRANSFORM:
-                return m_increasing ? 
-                    pFirst->transform < pSecond->transform  : 
+                return m_increasing ?
+                    pFirst->transform < pSecond->transform  :
                     pFirst->transform  > pSecond->transform ;
             case AD_SORT_BY_GROUP:
-                return m_increasing ? 
-                    pFirst->group < pSecond->group : 
+                return m_increasing ?
+                    pFirst->group < pSecond->group :
                     pFirst->group > pSecond->group;
 			case AD_SORT_BY_GROUP_SIZE:
-                return m_increasing ? 
-                    pFirst->groupSize < pSecond->groupSize : 
+                return m_increasing ?
+                    pFirst->groupSize < pSecond->groupSize :
                     pFirst->groupSize > pSecond->groupSize;
             case AD_SORT_BY_HINT:
-                return m_increasing ? 
-                    pFirst->hint < pSecond->hint : 
+                return m_increasing ?
+                    pFirst->hint < pSecond->hint :
                     pFirst->hint > pSecond->hint;
             }
         }

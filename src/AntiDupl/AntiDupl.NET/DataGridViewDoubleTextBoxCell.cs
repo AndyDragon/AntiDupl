@@ -38,7 +38,7 @@ namespace AntiDupl.NET
         const int TOP_INTEND = 2;
         const int RIGHT_INTEND = 1;
 
-        private Color m_separatorColor = Color.LightGray;
+        private Color m_separatorColor = Color.Silver;
         private Color m_markerColor = Color.Red;
 
         public Color separatorColor { get { return m_separatorColor; } set { m_separatorColor = value; } }

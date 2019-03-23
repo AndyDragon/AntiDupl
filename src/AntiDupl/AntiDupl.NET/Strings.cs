@@ -175,6 +175,9 @@ namespace AntiDupl.NET
         public string ResultsPreviewDuplPair_BothAllMistakeButton_ToolTip_Text;
         public string ResultsPreviewDuplPair_FirstAllMistakeButton_ToolTip_Text;
         public string ResultsPreviewDuplPair_SecondAllMistakeButton_ToolTip_Text;
+        public string ResultsPreviewDuplPair_FirstAllEquipmentMistakeButton_ToolTip_Text;
+        public string ResultsPreviewDuplPair_SecondAllEquipmentMistakeButton_ToolTip_Text;
+        public string ResultsPreviewDuplPair_BothAllEquipmentMistakeButton_ToolTip_Text;
 
         public string ResultsPreviewDefect_DeleteButton_ToolTip_Text;
         public string ResultsPreviewDefect_MistakeButton_ToolTip_Text;

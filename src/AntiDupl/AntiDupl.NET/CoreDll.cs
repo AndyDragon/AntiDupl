@@ -183,6 +183,9 @@ namespace AntiDupl.NET
             FirstAllMistake = 14,
             SecondAllMistake = 15,
             BothAllMistake = 16,
+            FirstAllEquipmentMistake = 17,
+            SecondAllEquipmentMistake = 18,
+            BothAllEquipmentMistake = 19,
         }
 
         public enum ActionEnableType : int

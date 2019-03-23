@@ -104,7 +104,13 @@ namespace ad
 		m_pUndoDeque->push_back(m_pCurrent->Clone());
 
 		// Удаляем из списка ошибочные или удаленные
-		if (localActionType == AD_LOCAL_ACTION_MISTAKE || localActionType == AD_LOCAL_ACTION_BOTHALLMISTAKE || localActionType == AD_LOCAL_ACTION_FIRSTALLMISTAKE || localActionType == AD_LOCAL_ACTION_SECONDALLMISTAKE)
+		if (localActionType == AD_LOCAL_ACTION_MISTAKE || 
+			localActionType == AD_LOCAL_ACTION_BOTHALLMISTAKE ||
+			localActionType == AD_LOCAL_ACTION_FIRSTALLMISTAKE ||
+			localActionType == AD_LOCAL_ACTION_SECONDALLMISTAKE ||
+			localActionType == AD_LOCAL_ACTION_FIRSTALLEQUIPMENTMISTAKE ||
+			localActionType == AD_LOCAL_ACTION_SECONDALLEQUIPMENTMISTAKE ||
+			localActionType == AD_LOCAL_ACTION_BOTHALLEQUIPMENTMISTAKE)
 			m_pCurrent->RemoveMistaken(m_pStatus, m_pMistakeStorage);
 		else
 			m_pCurrent->RemoveDeleted(m_pStatus);
@@ -555,6 +561,12 @@ namespace ad
 				return AllMistake(pResult->second);
 			case AD_LOCAL_ACTION_BOTHALLMISTAKE:
 				return AllMistake(pResult->first) && AllMistake(pResult->second);
+			case AD_LOCAL_ACTION_FIRSTALLEQUIPMENTMISTAKE:
+				return AllEquipmentMistake(pResult->first);
+			case AD_LOCAL_ACTION_SECONDALLEQUIPMENTMISTAKE:
+				return AllEquipmentMistake(pResult->second);
+			case AD_LOCAL_ACTION_BOTHALLEQUIPMENTMISTAKE:
+				return AllEquipmentMistake(pResult->first) && AllEquipmentMistake(pResult->second);
 			}
 		}
 		return false;
@@ -593,6 +605,33 @@ namespace ad
 				TImageInfo *pFirst = pResult->first;
 				TImageInfo *pSecond = pResult->second;
 				if ((!pFirst->removed && pFirst->path.Original() == pImageInfo->path.Original()) || (!pSecond->removed && pSecond->path.Original() == pImageInfo->path.Original()))
+				{
+					if (!Mistake(pResult))
+					{
+						return false;
+					}
+				}
+			}
+		}
+		return true;
+	}
+
+	//private Удаляет изображение
+	bool TUndoRedoEngine::AllEquipmentMistake(TImageInfo *pImageInfo)
+	{
+		if (pImageInfo->imageExif.isEmpty)
+		{
+			return false;
+		}
+		for (TResultPtrVector::iterator it = m_pCurrent->results.begin(); it != m_pCurrent->results.end(); ++it)
+		{
+			TResult *pResult = *it;
+			if (pResult->type == AD_RESULT_DUPL_IMAGE_PAIR)
+			{
+				TImageInfo *pFirst = pResult->first;
+				TImageInfo *pSecond = pResult->second;
+				if ((!pFirst->removed && !pFirst->imageExif.isEmpty && pFirst->imageExif.equipMake == pImageInfo->imageExif.equipMake && pFirst->imageExif.equipModel == pImageInfo->imageExif.equipModel) ||
+					(!pSecond->removed && !pSecond->imageExif.isEmpty && pSecond->imageExif.equipMake == pImageInfo->imageExif.equipMake && pSecond->imageExif.equipModel == pImageInfo->imageExif.equipModel))
 				{
 					if (!Mistake(pResult))
 					{

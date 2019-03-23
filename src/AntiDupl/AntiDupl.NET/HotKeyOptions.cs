@@ -42,6 +42,9 @@ namespace AntiDupl.NET
             CurrentFirstAllMistake,
             CurrentSecondAllMistake,
             CurrentBothAllMistake,
+            CurrentFirstAllEquipmentMistake,
+            CurrentSecondAllEquipmentMistake,
+            CurrentBothAllEquipmentMistake,
             ShowNeighbours,
             Size
         }
@@ -78,6 +81,9 @@ namespace AntiDupl.NET
             keys[(int)Action.CurrentFirstAllMistake] = Keys.Subtract;
             keys[(int)Action.CurrentSecondAllMistake] = Keys.Add;
             keys[(int)Action.CurrentBothAllMistake] = Keys.Multiply;
+            keys[(int)Action.CurrentFirstAllEquipmentMistake] = Keys.Control | Keys.Subtract;
+            keys[(int)Action.CurrentSecondAllEquipmentMistake] = Keys.Control | Keys.Add;
+            keys[(int)Action.CurrentBothAllEquipmentMistake] = Keys.Control | Keys.Multiply;
             keys[(int)Action.ShowNeighbours] = Keys.Control | Keys.Q;
         }
 
@@ -102,6 +108,12 @@ namespace AntiDupl.NET
                 keys[(int)Action.CurrentSecondAllMistake] = Keys.Add;
             if (action == Action.CurrentBothAllMistake)
                 keys[(int)Action.CurrentBothAllMistake] = Keys.Multiply;
+            if (action == Action.CurrentFirstAllEquipmentMistake)
+                keys[(int)Action.CurrentFirstAllEquipmentMistake] = Keys.Control | Keys.Subtract;
+            if (action == Action.CurrentSecondAllEquipmentMistake)
+                keys[(int)Action.CurrentSecondAllEquipmentMistake] = Keys.Control | Keys.Add;
+            if (action == Action.CurrentBothAllEquipmentMistake)
+                keys[(int)Action.CurrentBothAllEquipmentMistake] = Keys.Control | Keys.Multiply;
             if (action == Action.CurrentDuplPairRenameSecondToFirst)
                 keys[(int)Action.CurrentDuplPairRenameSecondToFirst] = Keys.NumPad6;
             if (action == Action.ShowNeighbours)
@@ -161,23 +173,21 @@ namespace AntiDupl.NET
                     return false;
                 }
             }
-            else if (action == Action.CurrentMistake)
+            else if (action == Action.CurrentMistake || 
+                action == Action.CurrentFirstAllMistake || 
+                action == Action.CurrentSecondAllMistake ||
+                action == Action.CurrentBothAllMistake ||
+                action == Action.CurrentFirstAllEquipmentMistake ||
+                action == Action.CurrentSecondAllEquipmentMistake ||
+                action == Action.CurrentBothAllEquipmentMistake)
             {
-                for (Action a = Action.CurrentDefectDelete; a < Action.CurrentMistake; a++)
+                for (Action a = Action.CurrentDefectDelete; a < Action.CurrentBothAllEquipmentMistake; a++)
                 {
-                    if (key.KeyData == keys[(int)a])
+                    if (key.KeyData == keys[(int)a] && a != action)
                     {
                         return false;
                     }
                 }
-            }
-            else if (action == Action.CurrentFirstAllMistake)
-            {
-                // TODO ??
-            }
-            else if (action == Action.CurrentSecondAllMistake)
-            {
-                // TODO ??
             }
             else
             {

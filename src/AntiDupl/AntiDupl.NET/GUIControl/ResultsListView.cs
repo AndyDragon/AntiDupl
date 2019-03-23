@@ -238,104 +238,10 @@ namespace AntiDupl.NET
 
         public void MakeAction(CoreDll.LocalActionType action, CoreDll.TargetType target)
         {
-            //if (action == CoreDll.LocalActionType.FirstAllMistake)
-            //{
-            //    if (target == CoreDll.TargetType.Current)
-            //    {
-            //        var currentResult = m_results[m_currentRowIndex];
-            //        if (currentResult.type == CoreDll.ResultType.DefectImage)
-            //        {
-            //            m_makeAction = true;
-            //            ProgressForm progressForm = new ProgressForm(CoreDll.LocalActionType.Mistake, target, m_core, m_options, m_coreOptions, m_mainSplitContainer);
-            //            progressForm.Execute();
-            //            m_makeAction = false;
-            //        }
-            //        else if (currentResult.type == CoreDll.ResultType.DuplImagePair)
-            //        {
-            //            for (var index = m_results.Length - 1; index >= 0; index--)
-            //            {
-            //                var result = m_results[index];
-            //                if (result.first.id == currentResult.first.id || result.second.id == currentResult.first.id)
-            //                {
-            //                    SetCurrentRow(index);
-            //                    m_makeAction = true;
-            //                    ProgressForm progressForm = new ProgressForm(CoreDll.LocalActionType.Mistake, target, m_core, m_options, m_coreOptions, m_mainSplitContainer);
-            //                    progressForm.Execute();
-            //                    m_makeAction = false;
-            //                }
-            //            }
-            //            SetRowSelection(false);
-            //        }
-            //    }
-            //}
-            //else if (action == CoreDll.LocalActionType.SecondAllMistake)
-            //{
-            //    if (target == CoreDll.TargetType.Current)
-            //    {
-            //        var currentResult = m_results[m_currentRowIndex];
-            //        if (currentResult.type == CoreDll.ResultType.DefectImage)
-            //        {
-            //            m_makeAction = true;
-            //            ProgressForm progressForm = new ProgressForm(CoreDll.LocalActionType.Mistake, target, m_core, m_options, m_coreOptions, m_mainSplitContainer);
-            //            progressForm.Execute();
-            //            m_makeAction = false;
-            //        }
-            //        else if (currentResult.type == CoreDll.ResultType.DuplImagePair)
-            //        {
-            //            for (var index = m_results.Length - 1; index >= 0; index--)
-            //            {
-            //                var result = m_results[index];
-            //                if (result.first.id == currentResult.second.id || result.second.id == currentResult.second.id)
-            //                {
-            //                    SetCurrentRow(index);
-            //                    m_makeAction = true;
-            //                    ProgressForm progressForm = new ProgressForm(CoreDll.LocalActionType.Mistake, target, m_core, m_options, m_coreOptions, m_mainSplitContainer);
-            //                    progressForm.Execute();
-            //                    m_makeAction = false;
-            //                }
-            //            }
-            //            SetRowSelection(false);
-            //        }
-            //    }
-            //}
-            //else if (action == CoreDll.LocalActionType.BothAllMistake)
-            //{
-            //    if (target == CoreDll.TargetType.Current)
-            //    {
-            //        var currentResult = m_results[m_currentRowIndex];
-            //        if (currentResult.type == CoreDll.ResultType.DefectImage)
-            //        {
-            //            m_makeAction = true;
-            //            ProgressForm progressForm = new ProgressForm(CoreDll.LocalActionType.Mistake, target, m_core, m_options, m_coreOptions, m_mainSplitContainer);
-            //            progressForm.Execute();
-            //            m_makeAction = false;
-            //        }
-            //        else if (currentResult.type == CoreDll.ResultType.DuplImagePair)
-            //        {
-            //            for (var index = m_results.Length - 1; index >= 0; index--)
-            //            {
-            //                var result = m_results[index];
-            //                if (result.first.id == currentResult.first.id || result.second.id == currentResult.first.id ||
-            //                    result.first.id == currentResult.second.id || result.second.id == currentResult.second.id)
-            //                {
-            //                    SetCurrentRow(index);
-            //                    m_makeAction = true;
-            //                    ProgressForm progressForm = new ProgressForm(CoreDll.LocalActionType.Mistake, target, m_core, m_options, m_coreOptions, m_mainSplitContainer);
-            //                    progressForm.Execute();
-            //                    m_makeAction = false;
-            //                }
-            //            }
-            //            SetRowSelection(false);
-            //        }
-            //    }
-            //}
-            //else
-            //{
-                m_makeAction = true;
-                ProgressForm progressForm = new ProgressForm(action, target, m_core, m_options, m_coreOptions, m_mainSplitContainer);
-                progressForm.Execute();
-                m_makeAction = false;
-            //}
+            m_makeAction = true;
+            ProgressForm progressForm = new ProgressForm(action, target, m_core, m_options, m_coreOptions, m_mainSplitContainer);
+            progressForm.Execute();
+            m_makeAction = false;
         }
 
         public void RefreshResults()
@@ -427,6 +333,12 @@ namespace AntiDupl.NET
                         MakeAction(CoreDll.LocalActionType.FirstAllMistake, CoreDll.TargetType.Current);
                     else if (hotKey == m_options.hotKeyOptions.keys[(int)HotKeyOptions.Action.CurrentSecondAllMistake])
                         MakeAction(CoreDll.LocalActionType.SecondAllMistake, CoreDll.TargetType.Current);
+                    else if (hotKey == m_options.hotKeyOptions.keys[(int)HotKeyOptions.Action.CurrentFirstAllEquipmentMistake])
+                        MakeAction(CoreDll.LocalActionType.FirstAllEquipmentMistake, CoreDll.TargetType.Current);
+                    else if (hotKey == m_options.hotKeyOptions.keys[(int)HotKeyOptions.Action.CurrentSecondAllEquipmentMistake])
+                        MakeAction(CoreDll.LocalActionType.SecondAllEquipmentMistake, CoreDll.TargetType.Current);
+                    else if (hotKey == m_options.hotKeyOptions.keys[(int)HotKeyOptions.Action.CurrentBothAllEquipmentMistake])
+                        MakeAction(CoreDll.LocalActionType.BothAllEquipmentMistake, CoreDll.TargetType.Current);
                     else if (hotKey == m_options.hotKeyOptions.keys[(int)HotKeyOptions.Action.ShowNeighbours])
                         m_options.resultsOptions.ShowNeighboursImages = !m_options.resultsOptions.ShowNeighboursImages;
                     return;
@@ -550,7 +462,18 @@ namespace AntiDupl.NET
                         }
                         break;
                     case ColumnsTypeVertical.FileDirectory:
-                        sortType = CoreDll.SortType.BySortedDirectory;
+                        if (Control.ModifierKeys == Keys.Control)
+                        {
+                            sortType = CoreDll.SortType.ByFirstDirectory;
+                        }
+                        else if(Control.ModifierKeys == (Keys.Control | Keys.Shift))
+                        {
+                            sortType = CoreDll.SortType.ByFirstDirectory;
+                        }
+                        else
+                        {
+                            sortType = CoreDll.SortType.BySortedDirectory;
+                        }
                         break;
                     case ColumnsTypeVertical.ImageSize:
                         sortType = CoreDll.SortType.BySortedArea;

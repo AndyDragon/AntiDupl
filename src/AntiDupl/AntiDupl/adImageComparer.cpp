@@ -161,6 +161,17 @@ namespace ad
 				return false;
 		}
 
+		if (m_pOptions->compare.equipmentControl == TRUE)
+		{
+			if (!pFirst->imageExif.isEmpty && !pSecond->imageExif.isEmpty)
+			{
+				if (!pFirst->imageExif.equipMake.empty() && pFirst->imageExif.equipMake != pSecond->imageExif.equipMake)
+					return false;
+				if (!pFirst->imageExif.equipModel.empty() && pFirst->imageExif.equipModel != pSecond->imageExif.equipModel)
+					return false;
+			}
+		}
+
 		if(m_pOptions->compare.compareInsideOneFolder == FALSE && TPath::EqualByDirectory(pFirst->path, pSecond->path))
 			return false;
 
@@ -346,7 +357,18 @@ namespace ad
                 return false;
         }
 
-        if(m_pOptions->compare.compareInsideOneFolder == FALSE && TPath::EqualByDirectory(pFirst->path, pSecond->path))
+		if (m_pOptions->compare.equipmentControl == TRUE)
+		{
+			if (!pFirst->imageExif.isEmpty && !pSecond->imageExif.isEmpty)
+			{
+				if (!pFirst->imageExif.equipMake.empty() && pFirst->imageExif.equipMake != pSecond->imageExif.equipMake)
+					return false;
+				if (!pFirst->imageExif.equipModel.empty() && pFirst->imageExif.equipModel != pSecond->imageExif.equipModel)
+					return false;
+			}
+		}
+
+		if(m_pOptions->compare.compareInsideOneFolder == FALSE && TPath::EqualByDirectory(pFirst->path, pSecond->path))
             return false;
 
 		if(m_pOptions->compare.compareInsideOneSearchPath == FALSE && pFirst->index == pSecond->index)

@@ -338,6 +338,7 @@ namespace AntiDupl.NET
             public int sizeControl;
             public int typeControl;
             public int ratioControl;
+            public int equipmentControl;
             public int thresholdDifference;
             public int minimalImageSize;
             public int maximalImageSize;

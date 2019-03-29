@@ -34,6 +34,7 @@ namespace AntiDupl.NET
         public bool sizeControl;
         public bool typeControl;
         public bool ratioControl;
+        public bool equipmentControl;
         public int thresholdDifference;
         public int minimalImageSize;
         public int maximalImageSize;
@@ -52,7 +53,8 @@ namespace AntiDupl.NET
             sizeControl = compareOptions.sizeControl;
             typeControl = compareOptions.typeControl;
             ratioControl = compareOptions.ratioControl;
-			algorithmComparing = compareOptions.algorithmComparing;
+            equipmentControl = compareOptions.equipmentControl;
+            algorithmComparing = compareOptions.algorithmComparing;
             thresholdDifference = compareOptions.thresholdDifference;
             minimalImageSize = compareOptions.minimalImageSize;
             maximalImageSize = compareOptions.maximalImageSize;
@@ -67,7 +69,8 @@ namespace AntiDupl.NET
             sizeControl = compareOptions.sizeControl != CoreDll.FALSE;
             typeControl = compareOptions.typeControl != CoreDll.FALSE;
             ratioControl = compareOptions.ratioControl != CoreDll.FALSE;
-			algorithmComparing = compareOptions.algorithmComparing;
+            equipmentControl = compareOptions.equipmentControl != CoreDll.FALSE;
+            algorithmComparing = compareOptions.algorithmComparing;
             thresholdDifference = compareOptions.thresholdDifference;
             minimalImageSize = compareOptions.minimalImageSize;
             maximalImageSize = compareOptions.maximalImageSize;
@@ -82,7 +85,8 @@ namespace AntiDupl.NET
             compareOptions.sizeControl = sizeControl ? CoreDll.TRUE : CoreDll.FALSE;
             compareOptions.typeControl = typeControl ? CoreDll.TRUE : CoreDll.FALSE;
             compareOptions.ratioControl = ratioControl ? CoreDll.TRUE : CoreDll.FALSE;
-			compareOptions.algorithmComparing = algorithmComparing;
+            compareOptions.equipmentControl = equipmentControl ? CoreDll.TRUE : CoreDll.FALSE;
+            compareOptions.algorithmComparing = algorithmComparing;
             compareOptions.thresholdDifference = thresholdDifference;
             compareOptions.minimalImageSize = minimalImageSize;
             compareOptions.maximalImageSize = maximalImageSize;
@@ -103,7 +107,8 @@ namespace AntiDupl.NET
                 sizeControl == compareOptions.sizeControl &&
                 typeControl == compareOptions.typeControl &&
                 ratioControl == compareOptions.ratioControl &&
-				algorithmComparing == compareOptions.algorithmComparing &&
+                equipmentControl == compareOptions.equipmentControl &&
+                algorithmComparing == compareOptions.algorithmComparing &&
                 thresholdDifference == compareOptions.thresholdDifference &&
                 minimalImageSize == compareOptions.minimalImageSize &&
                 maximalImageSize == compareOptions.maximalImageSize &&

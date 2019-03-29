@@ -466,10 +466,6 @@ namespace AntiDupl.NET
                         {
                             sortType = CoreDll.SortType.ByFirstDirectory;
                         }
-                        else if(Control.ModifierKeys == (Keys.Control | Keys.Shift))
-                        {
-                            sortType = CoreDll.SortType.ByFirstDirectory;
-                        }
                         else
                         {
                             sortType = CoreDll.SortType.BySortedDirectory;
@@ -521,7 +517,14 @@ namespace AntiDupl.NET
                         sortType = CoreDll.SortType.ByHint;
                         break;
                     case ColumnsTypeHorizontal.FirstFileName:
-                        sortType = CoreDll.SortType.ByFirstName;
+                        if (Control.ModifierKeys == Keys.Control)
+                        {
+                            sortType = CoreDll.SortType.ByFirstPath;
+                        }
+                        else
+                        {
+                            sortType = CoreDll.SortType.ByFirstName;
+                        }
                         break;
                     case ColumnsTypeHorizontal.FirstFileDirectory:
                         sortType = CoreDll.SortType.ByFirstDirectory;
@@ -545,7 +548,14 @@ namespace AntiDupl.NET
                         sortType = CoreDll.SortType.ByFirstTime;
                         break;
                     case ColumnsTypeHorizontal.SecondFileName:
-                        sortType = CoreDll.SortType.BySecondName;
+                        if (Control.ModifierKeys == Keys.Control)
+                        {
+                            sortType = CoreDll.SortType.BySecondPath;
+                        }
+                        else
+                        {
+                            sortType = CoreDll.SortType.BySecondName;
+                        }
                         break;
                     case ColumnsTypeHorizontal.SecondFileDirectory:
                         sortType = CoreDll.SortType.BySecondDirectory;

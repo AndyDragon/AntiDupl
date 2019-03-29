@@ -93,8 +93,9 @@ namespace ad
         m_options.push_back(TOption(&compare.transformedImage, TEXT("CompareOptions"), TEXT("TransformedImage"), FALSE, FALSE, TRUE));
         m_options.push_back(TOption(&compare.sizeControl, TEXT("CompareOptions"), TEXT("SizeControl"), FALSE, FALSE, TRUE));
         m_options.push_back(TOption(&compare.typeControl, TEXT("CompareOptions"), TEXT("TypeControl"), FALSE, FALSE, TRUE));
-        m_options.push_back(TOption(&compare.ratioControl, TEXT("CompareOptions"), TEXT("RatioControl"), TRUE, FALSE, TRUE));
-        m_options.push_back(TOption(&compare.thresholdDifference, TEXT("CompareOptions"), TEXT("ThresholdDifference"), 5, 0, 50));
+		m_options.push_back(TOption(&compare.ratioControl, TEXT("CompareOptions"), TEXT("RatioControl"), TRUE, FALSE, TRUE));
+		m_options.push_back(TOption(&compare.equipmentControl, TEXT("CompareOptions"), TEXT("EquipmentControl"), FALSE, FALSE, TRUE));
+		m_options.push_back(TOption(&compare.thresholdDifference, TEXT("CompareOptions"), TEXT("ThresholdDifference"), 5, 0, 50));
         m_options.push_back(TOption(&compare.minimalImageSize, TEXT("CompareOptions"), TEXT("MinimalImageSize"), 64, 0, INT_MAX));
 		m_options.push_back(TOption(&compare.maximalImageSize, TEXT("CompareOptions"), TEXT("MaximalImageSize"), 8196, 0, INT_MAX));
         m_options.push_back(TOption(&compare.compareInsideOneFolder, TEXT("CompareOptions"), TEXT("CompareInsideOneFolder"), TRUE, FALSE, TRUE));

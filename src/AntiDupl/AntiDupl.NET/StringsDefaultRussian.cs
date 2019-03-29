@@ -84,6 +84,7 @@ namespace AntiDupl.NET
             s.CoreOptionsForm_SizeControlCheckBox_Text = "��������� ������ ��������";
             s.CoreOptionsForm_TypeControlCheckBox_Text = "��������� ��� ��������";
             s.CoreOptionsForm_RatioControlCheckBox_Text = "��������� ����������� ������/������ ��������";
+            s.CoreOptionsForm_EquipmentControlCheckBox_Text = "Control image equipment used (make/model)";
             s.CoreOptionsForm_AlgorithmComparingLabeledComboBox_Text = "�������� ��������� �����������";
             s.CoreOptionsForm_AlgorithmComparingLabeledComboBox_SquaredSum = "������������������ ��������";
             s.CoreOptionsForm_ThresholdDifferenceLabeledComboBox_Text = "��������� ��������";

@@ -415,6 +415,7 @@ extern "C"
         adBool sizeControl;
         adBool typeControl;
         adBool ratioControl;
+		adBool equipmentControl;
         adInt32 thresholdDifference;
         adInt32 minimalImageSize;
 		adInt32 maximalImageSize;
